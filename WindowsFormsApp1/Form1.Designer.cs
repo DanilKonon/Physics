@@ -29,6 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,9 +51,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
-            this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -55,10 +61,16 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -86,9 +98,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(90, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "sigma";
+            this.label1.Text = "koef";
             // 
             // trackBar1
             // 
@@ -144,12 +156,12 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.Controls.Add(this.chart3, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.chart2, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.cartesianChart1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cartesianChart2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cartesianChart3, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel8, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chart1, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -202,30 +214,6 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(298, 263);
             this.tableLayoutPanel3.TabIndex = 7;
             this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
-            // 
-            // cartesianChart1
-            // 
-            this.cartesianChart1.Location = new System.Drawing.Point(459, 3);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(200, 100);
-            this.cartesianChart1.TabIndex = 8;
-            this.cartesianChart1.Text = "cartesianChart1";
-            // 
-            // cartesianChart2
-            // 
-            this.cartesianChart2.Location = new System.Drawing.Point(155, 3);
-            this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(200, 100);
-            this.cartesianChart2.TabIndex = 9;
-            this.cartesianChart2.Text = "cartesianChart2";
-            // 
-            // cartesianChart3
-            // 
-            this.cartesianChart3.Location = new System.Drawing.Point(459, 271);
-            this.cartesianChart3.Name = "cartesianChart3";
-            this.cartesianChart3.Size = new System.Drawing.Size(200, 100);
-            this.cartesianChart3.TabIndex = 10;
-            this.cartesianChart3.Text = "cartesianChart3";
             // 
             // tableLayoutPanel8
             // 
@@ -344,6 +332,60 @@
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // chart1
+            // 
+            chartArea6.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea6);
+            legend6.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend6.Name = "Legend1";
+            this.chart1.Legends.Add(legend6);
+            this.chart1.Location = new System.Drawing.Point(155, 3);
+            this.chart1.Name = "chart1";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chart1.Series.Add(series6);
+            this.chart1.Size = new System.Drawing.Size(298, 262);
+            this.chart1.TabIndex = 11;
+            this.chart1.Text = "chart1";
+            // 
+            // chart2
+            // 
+            chartArea5.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea5);
+            legend5.Enabled = false;
+            legend5.Name = "Legend1";
+            this.chart2.Legends.Add(legend5);
+            this.chart2.Location = new System.Drawing.Point(459, 3);
+            this.chart2.Name = "chart2";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chart2.Series.Add(series5);
+            this.chart2.Size = new System.Drawing.Size(298, 262);
+            this.chart2.TabIndex = 12;
+            this.chart2.Text = "chart2";
+            // 
+            // chart3
+            // 
+            chartArea4.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea4);
+            legend4.Enabled = false;
+            legend4.Name = "Legend1";
+            this.chart3.Legends.Add(legend4);
+            this.chart3.Location = new System.Drawing.Point(459, 271);
+            this.chart3.Name = "chart3";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart3.Series.Add(series4);
+            this.chart3.Size = new System.Drawing.Size(298, 262);
+            this.chart3.TabIndex = 13;
+            this.chart3.Text = "chart3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,6 +404,9 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -381,10 +426,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private LiveCharts.WinForms.CartesianChart cartesianChart2;
         private System.Windows.Forms.TextBox textBox3;
-        private LiveCharts.WinForms.CartesianChart cartesianChart3;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox6;
@@ -393,6 +435,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
     }
 }
 

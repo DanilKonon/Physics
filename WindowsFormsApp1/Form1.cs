@@ -26,16 +26,21 @@ namespace WindowsFormsApp1
         double omega_K { get; set; }
         Graphics graphics { get; set; }
         Rectangle moving_length { get; set; }
+
         // приводим к нормальному виду
         // здесь выполняется все кроме пересоздания массива при
         // изменении числа точек и изменения параметров
         // измение массива х возлагатся на метод, в котором изменяеются его параметры
         void Repaint()
         {
-            cartesianChart1.Series = new SeriesCollection();
-            cartesianChart2.Series = new SeriesCollection();
-            cartesianChart3.Series = new SeriesCollection();
-            
+            //cartesianChart1.Series = new SeriesCollection();
+            //cartesianChart2.Series = new SeriesCollection();
+            //cartesianChart3.Series = new SeriesCollection();
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            chart3.Series.Clear();
+            chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
+
             var x = ArrayBuilder.CreateVector(-Math.PI / ((XEnd - XStart) / NumOfPoints),
                 Math.PI / ((XEnd - XStart) / NumOfPoints), NumOfPoints);
             Complex[] G = new Complex[NumOfPoints];
@@ -47,7 +52,7 @@ namespace WindowsFormsApp1
             }
             for (int i = 0; i < NumOfPoints; i++)
             {
-                K[i] = new Complex (1 - 2 * Functions.func_gauss(x[i], sigma_K, omega_K), 0);
+                K[i] = new Complex (1 - sigma * Functions.func_gauss(x[i], sigma_K, omega_K), 0);
             }
             for (int i = 0; i < NumOfPoints; i++)
             {
@@ -56,9 +61,9 @@ namespace WindowsFormsApp1
             var koef_g = G.Max(t => t.Re);
             var koef_k = 1; //K.Min(t => t.Re);
             var koef_g_k = G_K.Max(t => t.Re);
-            Functions.complex_re_paint(cartesianChart1, x, G, koef_g);
-            Functions.complex_re_paint(cartesianChart1, x, K, koef_k);
-            Functions.complex_re_paint(cartesianChart2, x, G_K, koef_g_k);
+            //Functions.complex_re_paint(chart1, x, G, koef_g, "G(w)");
+            //Functions.complex_re_paint(chart1, x, K, koef_k, "K(w)");
+            Functions.complex_re_paint(chart2, x, G_K, koef_g_k, "GK(w)");
             Complex[] ft_g_k = new Complex[NumOfPoints];
             for (int i = 0; i < NumOfPoints; i++)
             {
@@ -67,8 +72,11 @@ namespace WindowsFormsApp1
             }
             //G_K.CopyTo(ft_g_k, 0);
             Functions.FastDFT(ft_g_k, -1);
+            Functions.FastDFT(G, 1);
+            Functions.FlipFlop(G);
             Functions.FlipFlop(ft_g_k);
-            Functions.complex_re_paint(cartesianChart3, this.x, ft_g_k, ft_g_k.Max(t => t.Re));
+            Functions.complex_re_paint(chart1, this.x, G, G.Max(t => t.Re));
+            Functions.complex_re_paint(chart3, this.x, ft_g_k, ft_g_k.Max(t => t.Re), "AutoF");
             //Functions.complex_re_paint_chart(chart1, this.x, ft_g_k, ft_g_k.Max(t => t.Re));
             //Complex[] auto_f = new Complex[f.Length];
             //for (int i = 0; i < NumOfPoints; i++)
@@ -116,18 +124,15 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            cartesianChart1.DisableAnimations = true;
-            cartesianChart2.DisableAnimations = true;
-            cartesianChart3.DisableAnimations = true;
             Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
             tableLayoutPanel1.Width = (int)(resolution.Width * (15.0 / 16.0));
             tableLayoutPanel1.Height = (int)(resolution.Height * (10.0 / 11.0)) ;
-            cartesianChart1.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[0].Height / 100);
-            cartesianChart1.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[2].Width / 100);
-            cartesianChart2.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[0].Height / 100);
-            cartesianChart2.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[1].Width / 100);
-            cartesianChart3.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[1].Height / 100);
-            cartesianChart3.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[2].Width / 100);
+            chart1.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[0].Height / 100);
+            chart1.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[2].Width / 100);
+            chart2.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[0].Height / 100);
+            chart2.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[1].Width / 100);
+            chart3.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[1].Height / 100);
+            chart3.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[2].Width / 100);
             tableLayoutPanel3.Height = (int)(tableLayoutPanel1.Height * tableLayoutPanel1.RowStyles[1].Height);
             tableLayoutPanel3.Width = (int)(tableLayoutPanel1.Width * tableLayoutPanel1.ColumnStyles[2].Width);
             NumOfPoints = (int)Math.Pow(2, trackBar1.Value);
@@ -165,6 +170,10 @@ namespace WindowsFormsApp1
             if (textBox1.Text.Length == 0) return;
             else if (!double.TryParse(textBox1.Text, out buf)) return;
             sigma = buf;
+            if (sigma < 0)
+                sigma = 0;
+            if (sigma > 1)
+                sigma = 1;
             Repaint();
         }
 
